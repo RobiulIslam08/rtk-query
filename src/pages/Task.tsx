@@ -9,7 +9,7 @@ import { ITask } from "@/types";
 const Task = () => {
   const {data,isLoading,isError}= useGetTaskQuery(undefined)
   console.log({data,isLoading,isError})
-  if(isLoading){
+  if(isLoading ){
     return <p>loading....</p>
   }
 

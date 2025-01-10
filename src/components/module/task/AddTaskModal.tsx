@@ -36,12 +36,20 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { useState } from "react";
+import { useCreateTaskMutation } from "@/redux/api/baseApi";
 
 export function AddTaskModal() {
   const [open, setOpen] = useState(false)
-
+  const [createTask,{data}] = useCreateTaskMutation()
+  console.log('data',data)
   const form = useForm();
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async(data) => {
+    const taskData = {
+      ...data,
+      isCompleted:false
+    }
+    const res = await createTask(taskData).unwrap()
+    console.log("inside submit fun", res)
   
     setOpen(false)
     form.reset()
